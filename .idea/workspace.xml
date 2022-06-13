@@ -4,22 +4,17 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="32ddafb6-32c1-462a-9e06-cba167b122de" name="Changes" comment="Version 0.5">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/Controller.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/FileInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/PanelController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/icon.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/main.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/panel.fxml" afterDir="false" />
+    <list default="true" id="32ddafb6-32c1-462a-9e06-cba167b122de" name="Changes" comment="Version 0.5 -readme update">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UAM/s475286/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UAM/s475286/FileInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/FileObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UAM/s475286/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/UAM/s475286/PanelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/UAM/s475286/TabController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/main.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/main.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/panel.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/panel.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +22,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -69,7 +69,7 @@
       <recent name="UAM.s475286" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.UAM.s475286.Main">
     <configuration name="App" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="UAM.s475286.App" />
       <module name="totalcmd" />
@@ -98,8 +98,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="Application.App" />
+        <item itemvalue="Application.UAM.s475286.Main" />
+        <item itemvalue="Application.UAM.s475286.App" />
       </list>
     </recent_temporary>
   </component>
@@ -115,8 +115,45 @@
       <workItem from="1655067080855" duration="1138000" />
       <workItem from="1655068243539" duration="651000" />
       <workItem from="1655068913379" duration="23386000" />
-      <workItem from="1655093508382" duration="327000" />
+      <workItem from="1655093508382" duration="1325000" />
+      <workItem from="1655124384922" duration="3669000" />
     </task>
+    <task id="LOCAL-00001" summary="Version 0.5">
+      <created>1655093853902</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1655093853902</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Version 0.5">
+      <created>1655094274811</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1655094274811</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Version 0.5">
+      <created>1655094476840</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1655094476840</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Version 0.5">
+      <created>1655094530299</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1655094530299</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Version 0.5 -readme update">
+      <created>1655094681021</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1655094681021</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,15 +172,16 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Version 0.5" />
-    <option name="LAST_COMMIT_MESSAGE" value="Version 0.5" />
+    <MESSAGE value="Version 0.5 -readme update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Version 0.5 -readme update" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/UAM/s475286/PanelController.java</url>
-          <line>219</line>
-          <option name="timeStamp" value="7" />
+          <url>file://$PROJECT_DIR$/src/main/java/UAM/s475286/TabController.java</url>
+          <line>196</line>
+          <option name="timeStamp" value="10" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

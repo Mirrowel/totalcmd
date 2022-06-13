@@ -4,16 +4,15 @@ import javafx.beans.property.SimpleStringProperty;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.time.format.DateTimeFormatter;
 
-public class FileInfo {
+public class FileObject {
     public enum FileType {
         FILE("F"), DIRECTORY("D");
 
@@ -66,16 +65,21 @@ public class FileInfo {
         this.lastModified = lastModified;
     }
 
-    public FileInfo(Path path) {
+    private SimpleStringProperty created;
+
+    public FileObject(Path path) {
         try {
             //try {
-            if(path.equals(path.getRoot()))
+            if (path.equals(path.getRoot()))
                 this.filename = "123";
             else
                 this.filename = path.getFileName().toString();
             //} catch (InvocationTargetException exception) {
             //    filename="123";
             //}
+            SimpleDateFormat template = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            BasicFileAttributes atr = Files.readAttributes(path, BasicFileAttributes.class);
+            this.created = new SimpleStringProperty(template.format(atr.creationTime().toMillis()));
             this.size = Files.size(path);
             this.type = Files.isDirectory(path) ? FileType.DIRECTORY : FileType.FILE;
             if (this.type == FileType.DIRECTORY) {
@@ -83,7 +87,7 @@ public class FileInfo {
             }
             this.lastModified = LocalDateTime.ofInstant(Files.getLastModifiedTime(path).toInstant(), ZoneOffset.ofHours(3));
         } catch (IOException e) {
-            filename="123";
+            filename = "123";
             throw new RuntimeException("Unable to create file info from path");
         }
     }

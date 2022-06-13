@@ -7,14 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
-
 public class Main extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/icon.png")));
         Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
-        primaryStage.setTitle("Java Total Commander");
+        primaryStage.setTitle("Total Commander (Java) 0.51");
         primaryStage.setScene(new Scene(root, 1280, 600));
         primaryStage.show();
     }

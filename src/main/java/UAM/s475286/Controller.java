@@ -1,7 +1,6 @@
 package UAM.s475286;
 
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
@@ -29,32 +28,32 @@ public class Controller {
     }
 
     public void copyBtnAction() throws IOException {
-        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
-        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
+        TabController leftTab = (TabController) leftPanel.getProperties().get("ctrl");
+        TabController rightTab = (TabController) rightPanel.getProperties().get("ctrl");
 
-        if (leftPC.getSelectedFilename() == null && rightPC.getSelectedFilename() == null) {
+        if (leftTab.getSelectedFilename() == null && rightTab.getSelectedFilename() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "No files selected", ButtonType.OK);
             alert.showAndWait();
             return;
         }
 
-        PanelController srcPC = null, dstPC = null;
-        if (leftPC.getSelectedFilename() != null) {
-            srcPC = leftPC;
-            dstPC = rightPC;
+        TabController srcTab = null, dstTab = null;
+        if (leftTab.getSelectedFilename() != null) {
+            srcTab = leftTab;
+            dstTab = rightTab;
         }
-        if (rightPC.getSelectedFilename() != null) {
-            srcPC = rightPC;
-            dstPC = leftPC;
+        if (rightTab.getSelectedFilename() != null) {
+            srcTab = rightTab;
+            dstTab = leftTab;
         }
 
-        Path srcPath = Paths.get(srcPC.getCurrentPath(), srcPC.getSelectedFilename());
-        Path dstPath = Paths.get(dstPC.getCurrentPath()).resolve(srcPath.getFileName().toString());
+        Path srcPath = Paths.get(srcTab.getCurrentPath(), srcTab.getSelectedFilename());
+        Path dstPath = Paths.get(dstTab.getCurrentPath()).resolve(srcPath.getFileName().toString());
         tryCopy(srcPath, dstPath);
-        dstPC.updateList(Paths.get(dstPC.getCurrentPath()));
+        dstTab.updateList(Paths.get(dstTab.getCurrentPath()));
     }
 
-    private void tryCopy(Path srcPath, Path dstPath) throws IOException {
+    private void tryCopy(Path srcPath, Path dstPath) {
         System.out.println(srcPath);
         System.out.println(dstPath);
         System.out.println();
@@ -76,61 +75,61 @@ public class Controller {
         }
     }
 
-    private static void copy(Path source, Path dest) {
+    private static void copy(Path src, Path dest) {
         try {
-            Files.copy(source, dest, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
+            Files.copy(src, dest, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.COPY_ATTRIBUTES);
         } catch (Exception e) {
             throw new RuntimeException(e.getMessage(), e);
         }
     }
 
-    public void moveBtnAction() throws IOException {
-        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
-        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
+    public void moveBtnAction() {
+        TabController leftTab = (TabController) leftPanel.getProperties().get("ctrl");
+        TabController rightTab = (TabController) rightPanel.getProperties().get("ctrl");
 
-        if (leftPC.getSelectedFilename() == null && rightPC.getSelectedFilename() == null) {
+        if (leftTab.getSelectedFilename() == null && rightTab.getSelectedFilename() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "No files selected", ButtonType.OK);
             alert.showAndWait();
             return;
         }
-        PanelController srcPC = null, dstPC = null;
-        if (leftPC.getSelectedFilename() != null) {
-            srcPC = leftPC;
-            dstPC = rightPC;
+        TabController srcTab = null, dstTab = null;
+        if (leftTab.getSelectedFilename() != null) {
+            srcTab = leftTab;
+            dstTab = rightTab;
         }
-        if (rightPC.getSelectedFilename() != null) {
-            srcPC = rightPC;
-            dstPC = leftPC;
+        if (rightTab.getSelectedFilename() != null) {
+            srcTab = rightTab;
+            dstTab = leftTab;
         }
 
-        Path srcPath = Paths.get(srcPC.getCurrentPath(), srcPC.getSelectedFilename());
-        Path dstPath = Paths.get(dstPC.getCurrentPath()).resolve(srcPath.getFileName().toString());
+        Path srcPath = Paths.get(srcTab.getCurrentPath(), srcTab.getSelectedFilename());
+        Path dstPath = Paths.get(dstTab.getCurrentPath()).resolve(srcPath.getFileName().toString());
         tryCopy(srcPath, dstPath);
         tryDelete(srcPath);
         UpdateLists();
     }
 
-    public void deleteBtnAction(){
-        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
-        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
+    public void deleteBtnAction() {
+        TabController leftTab = (TabController) leftPanel.getProperties().get("ctrl");
+        TabController rightTab = (TabController) rightPanel.getProperties().get("ctrl");
 
-        if (leftPC.getSelectedFilename() == null && rightPC.getSelectedFilename() == null) {
+        if (leftTab.getSelectedFilename() == null && rightTab.getSelectedFilename() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "No files selected", ButtonType.OK);
             alert.showAndWait();
             return;
         }
 
-        PanelController srcPC = null, dstPC = null;
-        if (leftPC.getSelectedFilename() != null) {
-            srcPC = leftPC;
+        TabController srcTab = null;
+        if (leftTab.getSelectedFilename() != null) {
+            srcTab = leftTab;
         }
-        if (rightPC.getSelectedFilename() != null) {
-            srcPC = rightPC;
+        if (rightTab.getSelectedFilename() != null) {
+            srcTab = rightTab;
         }
 
-        Path srcPath = Paths.get(srcPC.getCurrentPath(), srcPC.getSelectedFilename());
+        Path srcPath = Paths.get(srcTab.getCurrentPath(), srcTab.getSelectedFilename());
         tryDelete(srcPath);
-        srcPC.updateList(Paths.get(srcPC.getCurrentPath()));
+        srcTab.updateList(Paths.get(srcTab.getCurrentPath()));
     }
 
     private void tryDelete(Path srcPath) {
@@ -152,20 +151,18 @@ public class Controller {
 
     @FXML
     private void createBtnAction() {
-        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
-        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
+        TabController leftTab = (TabController) leftPanel.getProperties().get("ctrl");
+        TabController rightTab = (TabController) rightPanel.getProperties().get("ctrl");
 
-        PanelController srcPC = null, dstPC = null;
-        if (leftPC.getSelectedFilename() != null) {
-            srcPC = leftPC;
-            dstPC = rightPC;
+        TabController srcTab = null;
+        if (leftTab.getSelectedFilename() != null) {
+            srcTab = leftTab;
         }
-        if (rightPC.getSelectedFilename() != null) {
-            srcPC = rightPC;
-            dstPC = leftPC;
+        if (rightTab.getSelectedFilename() != null) {
+            srcTab = rightTab;
         }
 
-        Path srcPath = Paths.get(srcPC.getCurrentPath(), srcPC.getSelectedFilename());
+        Path srcPath = Paths.get(srcTab.getCurrentPath(), srcTab.getSelectedFilename());
 
         try {
             TextInputDialog dialog = new TextInputDialog("New folder");
@@ -178,45 +175,41 @@ public class Controller {
                 return;
             if (result.get().isEmpty())
                 throw new IOException("Name is empty");
-            if(!(new File(srcPath.toString()).canWrite()))
+            if (!(new File(srcPath.toString()).canWrite()))
                 throw new IOException("Writing not allowed");
 
-            Files.createDirectories(Paths.get(srcPC.getCurrentPath() + "/" + result.get()));
+            Files.createDirectories(Paths.get(srcTab.getCurrentPath() + "/" + result.get()));
             UpdateLists();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
     private void UpdateLists() {
-        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
-        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
-        leftPC.updateList(Paths.get(leftPC.getCurrentPath()));
-        rightPC.updateList(Paths.get(rightPC.getCurrentPath()));
+        TabController leftTab = (TabController) leftPanel.getProperties().get("ctrl");
+        TabController rightTab = (TabController) rightPanel.getProperties().get("ctrl");
+        leftTab.updateList(Paths.get(leftTab.getCurrentPath()));
+        rightTab.updateList(Paths.get(rightTab.getCurrentPath()));
     }
 
-    public void mouseClickCtrl(){
-        PanelController leftPC = (PanelController) leftPanel.getProperties().get("ctrl");
-        PanelController rightPC = (PanelController) rightPanel.getProperties().get("ctrl");
+    public void mouseClickCtrl() {
+        TabController leftTab = (TabController) leftPanel.getProperties().get("ctrl");
+        TabController rightTab = (TabController) rightPanel.getProperties().get("ctrl");
 
-        if (leftPC.getSelectedFilename() == null && rightPC.getSelectedFilename() == null) {
+        if (leftTab.getSelectedFilename() == null && rightTab.getSelectedFilename() == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "No files selected", ButtonType.OK);
             alert.showAndWait();
             return;
         }
-        PanelController srcPC = null, dstPC = null;
-        if (leftPC.getSelectedFilename() != null) {
-            srcPC = leftPC;
-            dstPC = rightPC;
+        TabController srcTab = null;
+        if (leftTab.getSelectedFilename() != null) {
+            srcTab = leftTab;
         }
-        if (rightPC.getSelectedFilename() != null) {
-            srcPC = rightPC;
-            dstPC = leftPC;
+        if (rightTab.getSelectedFilename() != null) {
+            srcTab = rightTab;
         }
 
-        Path srcPath = Paths.get(srcPC.getCurrentPath(), srcPC.getSelectedFilename());
-        srcPC.mouseClick();
+        srcTab.mouseClick();
     }
 
     @FXML

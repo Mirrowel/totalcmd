@@ -1,6 +1,6 @@
 POB semester 2 Project.
 
-
+![img.png](img.png)
 Tasks:
 
  1. Wchodzenie do podfolderów i folderu nadrzędnego (jak w total commander) (20 pkt.)

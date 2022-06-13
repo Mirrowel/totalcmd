@@ -4,7 +4,6 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
-import javafx.scene.layout.VBox;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,9 +22,9 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PanelController implements Initializable {
+public class TabController implements Initializable {
     @FXML
-    TableView<FileInfo> filesTable;
+    TableView<FileObject> filesTable;
 
     @FXML
     ComboBox<String> disksBox;
@@ -36,18 +34,18 @@ public class PanelController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        TableColumn<FileInfo, String> fileTypeColumn = new TableColumn<>();
+        TableColumn<FileObject, String> fileTypeColumn = new TableColumn<>();
         fileTypeColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getType().getName()));
         fileTypeColumn.setPrefWidth(24);
 
-        TableColumn<FileInfo, String> filenameColumn = new TableColumn<>("Name");
+        TableColumn<FileObject, String> filenameColumn = new TableColumn<>("Name");
         filenameColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFilename()));
         filenameColumn.setPrefWidth(240);
 
-        TableColumn<FileInfo, Long> fileSizeColumn = new TableColumn<>("Size");
+        TableColumn<FileObject, Long> fileSizeColumn = new TableColumn<>("Size");
         fileSizeColumn.setCellValueFactory(param -> new SimpleObjectProperty<>(param.getValue().getSize()));
         fileSizeColumn.setCellFactory(column -> {
-            return new TableCell<FileInfo, Long>() {
+            return new TableCell<FileObject, Long>() {
                 @Override
                 protected void updateItem(Long item, boolean empty) {
                     super.updateItem(item, empty);
@@ -67,7 +65,7 @@ public class PanelController implements Initializable {
         fileSizeColumn.setPrefWidth(120);
 
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        TableColumn<FileInfo, String> fileDateColumn = new TableColumn<>("Date");
+        TableColumn<FileObject, String> fileDateColumn = new TableColumn<>("Date");
         fileDateColumn.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getLastModified().format(dtf)));
         fileDateColumn.setPrefWidth(120);
 
@@ -81,11 +79,10 @@ public class PanelController implements Initializable {
         disksBox.getSelectionModel().select(0);
 
 
-
-        ObjectProperty<TableRow<FileInfo>> lastSelectedRow = new SimpleObjectProperty<>();
+        ObjectProperty<TableRow<FileObject>> lastSelectedRow = new SimpleObjectProperty<>();
 
         filesTable.setRowFactory(tableView -> {
-            TableRow<FileInfo> row = new TableRow<FileInfo>();
+            TableRow<FileObject> row = new TableRow<FileObject>();
 
             row.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
                 if (isNowSelected) {
@@ -104,10 +101,10 @@ public class PanelController implements Initializable {
                     //filesTable.getSelectionModel().clearSelection();
                     return;
                 } //- to clear selection when selecting empty space
-                FileInfo selected = filesTable.getSelectionModel().getSelectedItem();
+                FileObject selected = filesTable.getSelectionModel().getSelectedItem();
                 if (selected != null) {
                     System.out.println("click on " + filesTable.getSelectionModel().getSelectedItem().getFilename());
-                    if (event.getClickCount() >=2) {
+                    if (event.getClickCount() >= 2) {
                         mouseClick();
                     }
                 }
@@ -121,7 +118,7 @@ public class PanelController implements Initializable {
                     //filesTable.getSelectionModel().clearSelection();
                     return;
                 } //- to clear selection when selecting empty space
-                Path path = Paths.get(getCurrentPath(),getSelectedFilename());
+                Path path = Paths.get(getCurrentPath(), getSelectedFilename());
                 if (path != null) {
                     System.out.println("MOUSE DRAG on " + path);
                     Dragboard db = filesTable.startDragAndDrop(TransferMode.ANY);
@@ -142,7 +139,7 @@ public class PanelController implements Initializable {
                 }
                 event.consume();
             }
-            });
+        });
 
         filesTable.setOnDragDropped(new EventHandler<DragEvent>() {
             public void handle(DragEvent event) {
@@ -165,36 +162,16 @@ public class PanelController implements Initializable {
                 event.consume();
                 updateList(Paths.get(getCurrentPath()));
             }
-            });
-
-        filesTable.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent event) {
-
-                KeyCode code = event.getCode();
-
-                if(code == KeyCode.F5){
-                }
-
-                else if(code == KeyCode.F6){
-                    //onCreateAction();
-                }
-
-                else if(code == KeyCode.F7){
-                    //onDeleteAction();
-                }
-
-
-            }
         });
 
         filesTable.sortPolicyProperty().set(t -> {
-            Comparator<FileInfo> comparator = (r1, r2) ->
+            Comparator<FileObject> comparator = (r1, r2) ->
                     r1.getFilename().equals("...") ? -1
                             : r2.getFilename().equals("...") ? 1
                             : t.getComparator() == null ? 0
                             : t.getComparator().compare(r1, r2);
 
-            if(t.getItems()==null)
+            if (t.getItems() == null)
                 return false;
             FXCollections.sort(t.getItems(), comparator);
             return true;
@@ -207,10 +184,10 @@ public class PanelController implements Initializable {
     public void mouseClick() {
         Path path = Paths.get(pathField.getText()).resolve(filesTable.getSelectionModel().getSelectedItem().getFilename());
         if (filesTable.getSelectionModel().getSelectedItem().getFilename() == "...") {
-            System.out.println("...");
+            //System.out.println("...");
             btnPathUpAction();
         } else if (Files.isDirectory(path) && filesTable.getSelectionModel().getSelectedItem().getFilename() != "...") {
-            System.out.println("updated");
+            //System.out.println("updated");
             updateList(path);
         }
     }
@@ -222,9 +199,9 @@ public class PanelController implements Initializable {
 
             Path upperPath = Paths.get(pathField.getText()).getParent();
             if (upperPath != null) {
-                filesTable.getItems().add(new FileInfo(upperPath));
+                filesTable.getItems().add(new FileObject(upperPath));
             }
-                filesTable.getItems().addAll(Files.list(path).map(FileInfo::new).collect(Collectors.toList()));
+            filesTable.getItems().addAll(Files.list(path).map(FileObject::new).collect(Collectors.toList()));
             if (upperPath != null) {
                 filesTable.getItems().get(0).setFilename("...");
             }
@@ -259,7 +236,8 @@ public class PanelController implements Initializable {
     public String getCurrentPath() {
         return pathField.getText();
     }
-    public TableView<FileInfo> getFileInfo() {
+
+    public TableView<FileObject> getFileInfo() {
         return filesTable;
     }
 
